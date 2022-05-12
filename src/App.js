@@ -12,7 +12,7 @@ export default function App(){
     
     useEffect(() => {
         if(text){
-            fetch(`${urlAPI}anime?filter[text]=${text}&page[limit]=20`)
+            fetch(`${urlAPI}anime?filter[text]=${text}&page[limit]=200`)
                 .then((res) => res.json())
                     .then((res) => {
                         // console.log(res)
