@@ -4,6 +4,7 @@ import SearchInput from "./components/SearchInput";
 import "./index.css";
 import NavBar from "./components/navbar";
 import axios from "axios";
+import {ButtonPagination, TextPagination } from "./components/buttonPagination";
 
 const api = "https://kitsu.io/api/edge/";
 
@@ -12,7 +13,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [info, setInfo] = useState([]);
 
-  function handlePage(action) {
+  function handlePageAction(action) {
     setPage(action === "back" ? page - 1 : page + 1);
     window.scrollTo(0, 0);
   }
@@ -36,19 +37,20 @@ export default function App() {
       <SearchInput value={text} onChange={(search) => setText(search)} />
       {text && (
         <>
-          <div className="btn-groupe">
-            <a
-              className="btn text-white"
-              onClick={() => handlePage("back")}
-              disabled={page < 2}
-            >
-              &#8672; Voltar
-            </a>
-            <a className="btn text-white" onClick={() => handlePage("next")}>
-              Proxima pagina &#8674;
-            </a>
+          <div className="btn-group">
+            <ButtonPagination
+              handlePage={() => handlePageAction("back")}
+              buttonText="Voltar"
+              iconButton="&#8672;"
+            />
+            <ButtonPagination
+              handlePage={() => handlePageAction("next")}
+              buttonText="Proxima pagina"
+              iconButton="&#8674;"
+            />
           </div>
-          <div className="text-center text-danger">Página {page}</div>
+        <TextPagination textPage={`Pagina ${page}`} />
+         
         </>
       )}
 

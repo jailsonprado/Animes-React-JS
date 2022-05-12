@@ -41,7 +41,7 @@ body{
 
 
 
-.btn-groupe {
+.btn-group{
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -54,6 +54,7 @@ body{
   margin: 0 auto;
   margin-left: 30px;
   margin-right: 30px;
+  margin-top: 20px;
 }
 
 .btn {
