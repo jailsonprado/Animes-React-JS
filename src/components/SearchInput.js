@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import useDebounce from './UseDebounce'
-import './index.css'
+import useDebounce from '../utils/UseDebounce'
+import styles from './styles.module.css'
+
 
 const SearchInput = ({value, onChange}) => {
     const [displayValue, setDisplayValue] = useState(value)
@@ -11,7 +12,7 @@ const SearchInput = ({value, onChange}) => {
         debouncedValue(e.target.value)
     }
     return (
-        <input className="search-input" placeholder="Pesquisar" type="search" value={displayValue} onChange={handleChange}/>
+        <input className={styles.searchInput} placeholder="Pesquisar animes" type="search" value={displayValue} onChange={handleChange}/>
     )
 }
 
