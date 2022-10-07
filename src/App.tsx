@@ -9,17 +9,20 @@ import {
   TextPagination,
 } from "./components/buttonPagination";
 import { datalayer } from "./hooks";
+import { AnimesProps } from "./utils/types";
 
 const api = "https://kitsu.io/api/edge/";
 
 interface Props {
-  anime: {
-    id: string;
-    attributes: {
-      canonicalTitle: string;
-      posterImage: {
-        small: string;
-      };
+  id: string;
+  attributes: {
+    canonicalTitle: string;
+    posterImage: {
+      tiny: string;
+      large: string;
+      small: string;
+      medium: string;
+      original: string;
     };
   };
 }
@@ -27,7 +30,7 @@ interface Props {
 export default function App() {
   const [text, setText] = useState<string>("");
   const [page, setPage] = useState(1);
-  const [info, setInfo] = useState<Props>();
+  const [info, setInfo] = useState([]);
 
   function handlePageAction(action: string) {
     setPage(action === "back" ? page - 1 : page + 1);
@@ -45,12 +48,14 @@ export default function App() {
       request();
     }
   }, [text, page]);
-
   useEffect(() => {
+    const infoName: any = info.map(
+      (anime: any) => anime.attributes.canonicalTitle
+    );
     if (info) {
       datalayer({
-        textoPesquisado: info?.anime.attributes.canonicalTitle,
-        textKeyPress: text
+        textoPesquisado: infoName,
+        textKeyPress: text,
       });
     }
   }, [info, text]);
@@ -83,14 +88,16 @@ export default function App() {
       {text && !info && <span>Carregando...</span>}
       {info && (
         <ul className="animes-list">
-          <li key={info.anime.id}>
-            <img
-              src={info.anime.attributes.posterImage.small}
-              alt={info.anime.attributes.canonicalTitle}
-            />
-            {info.anime.attributes.canonicalTitle}
-          </li>
-        </ul>
+          {info.map((anime: any) => (
+            <li key={anime.id}>
+              <img
+                src={anime.attributes.posterImage.small}
+                alt={anime.attributes.canonicalTitle}
+              />
+              {anime.attributes.canonicalTitle}
+            </li>
+          ))}
+       </ul>
       )}
     </div>
   );
