@@ -1,14 +1,37 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import SearchInput from "./components/SearchInput";
 import "./index.css";
 import NavBar from "./components/navbar";
-import axios from "axios";
+import axios from "axios"
 import {
   ButtonPagination,
   TextPagination,
 } from "./components/buttonPagination";
-import { datalayer } from "./hooks";
+import { slugify } from './utils/slugify/slugify';
+
+type Params = Record<string, string>;
+
+interface Options {
+  event: string | undefined;
+}
+
+const datalayer = (params: Params, options?: Options) => {
+  const defaultOptions = { event: 'page', ...options };
+  const paramsFormatados = Object.entries(params).reduce<Params>((result, [key, value]) => {
+    result[key] = slugify(value);
+    return result;
+  }, {});
+
+  const data = { ...paramsFormatados };
+
+  if (defaultOptions.event) {
+    data.event = defaultOptions.event;
+  }
+
+  (window as any)?.dataLayer?.push(data);
+};
+
+export { datalayer };
 
 
 const api = "https://kitsu.io/api/edge/";
