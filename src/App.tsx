@@ -13,7 +13,7 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [info, setInfo] = useState([]);
 
-  function handlePageAction(action) {
+  function handlePageAction(action: string) {
     setPage(action === "back" ? page - 1 : page + 1);
     window.scrollTo(0, 0);
   }
