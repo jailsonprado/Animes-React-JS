@@ -20,21 +20,21 @@ export default function App() {
 
   useEffect(() => {
     if (text) {
-      async function loadContent() {
+
+      const request = async () => {
         const response = await axios.get(
           `${api}anime?filter[text]=${text}&page[limit]=18&page[offset]=${page}"`
         );
-        setInfo(response.data);
-        console.log(response.data);
+        setInfo(response.data.data);        
       }
-      loadContent();
+      request()
     }
   }, [text, page]);
 
   return (
     <div className="App">
       <NavBar title="React Animes" />
-      <SearchInput value={text} onChange={(search) => setText(search)} />
+      <SearchInput value={text} onChange={(search: string) => setText(search)} />
       {text && (
         <>
           <div className="btn-group">
@@ -54,10 +54,10 @@ export default function App() {
         </>
       )}
 
-      {text && !info.data && <span>Carregando...</span>}
-      {info.data && (
+      {text && !info && <span>Carregando...</span>}
+      {info && (
         <ul className="animes-list">
-          {info.data.map((anime) => (
+          {info.map((anime: any) => (
             <li key={anime.id}>
               <img
                 src={anime.attributes.posterImage.small}

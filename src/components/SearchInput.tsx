@@ -5,7 +5,7 @@ import * as S from './search.styles'
 
 interface Props {
     value: string,
-    onChange: () => void
+    onChange: (search: string) => void
 }
 
 const SearchInput = ({value, onChange}: Props) => {
