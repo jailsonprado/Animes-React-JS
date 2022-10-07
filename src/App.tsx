@@ -9,23 +9,9 @@ import {
   TextPagination,
 } from "./components/buttonPagination";
 import { datalayer } from "./hooks";
-import { AnimesProps } from "./utils/types";
+
 
 const api = "https://kitsu.io/api/edge/";
-
-interface Props {
-  id: string;
-  attributes: {
-    canonicalTitle: string;
-    posterImage: {
-      tiny: string;
-      large: string;
-      small: string;
-      medium: string;
-      original: string;
-    };
-  };
-}
 
 export default function App() {
   const [text, setText] = useState<string>("");
